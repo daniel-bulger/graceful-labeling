@@ -1,12 +1,5 @@
 % this will deal with graceful labelings for a tree
 
-list_sum([Item], Item).
-list_sum([Item1,Item2 | Tail], Total) :-
-    between(1,16,Item2),
-    Sum is Item1+Item2,
-    list_sum([Sum|Tail], Total).
-
-
 permute([], []).
 permute([X|Rest], L) :-
     permute(Rest, L1),
