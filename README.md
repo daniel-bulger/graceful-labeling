@@ -5,7 +5,7 @@ A Prolog library that generates and verifies graceful labelings for trees.
 
 ##Usage
 ###Generation
-To generate graceful labelings, simply type
+To generate graceful labelings for a tree, simply type
 `graceful(E,X).`, where E is a list of edges, and X is an unbound variable.
 An edge is formatted `[a,b]` where a and b are integers corresponding to vertices in the tree.  The vertices must be 1-indexed.  So the encoding for the tree that is a straight line with 4 vertices would be `[[1,2],[2,3],[3,4]]`. 
 So to generate all graceful labelings for this tree, we type `graceful([[1,2],[2,3],[3,4]],X).`.
