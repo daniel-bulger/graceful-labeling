@@ -4,7 +4,7 @@ permute([X|Rest], L) :-
     select(X, L, L1).
 
 % get numbers from 1 to N
-getnums(N,Lis) :-
+getnums1(N,Lis) :-
     getnumsinner(N,Revlis),
     reverse(Revlis,Lis).
 getnumsinner(1,[1]).
@@ -13,7 +13,31 @@ getnumsinner(N,[N|Lis]) :-
     M is N-1,
     getnumsinner(M,Lis).
 
+indexof([Element|_], Element, 0). % We found the element
+indexof([_|Tail], Element, Index):-
+  indexof(Tail, Element, Index1), % Check in the tail of the list
+  Index is Index1+1.  % and increment the resulting index
 
+% Case 1: Index not specified
+nth1(Index, In, Element, Rest) :-
+    var(Index), !,
+    generate_nth(1, Index, In, Element, Rest).
+% Case 2: Index is specified
+nth1(Index, In, Element, Rest) :-
+    integer(Index), Index > 0,
+    find_nth1(Index, In, Element, Rest).
+
+generate_nth(I, I, [Head|Rest], Head, Rest).
+generate_nth(I, IN, [H|List], El, [H|Rest]) :-
+    I1 is I+1,
+    generate_nth(I1, IN, List, El, Rest).
+
+find_nth1(1, [Head|Rest], Head, Rest) :- !.
+find_nth1(N, [Head|Rest0], Elem, [Head|Rest]) :-
+    M is N-1,
+    find_nth1(M, Rest0, Elem, Rest).
+
+% my code
 
 num_occurrences([Item],Item,Num) :-
     Num is 1.
@@ -28,11 +52,10 @@ num_occurrences([Head|Tail],Item,Num) :-
     num_occurrences(Tail,Item,Num).
 
 difference_alternate([Head,Tail],Labels,Diff,Le) :-
-    nth1(Head,Labels,Num1),
-    nth1(Tail,Labels,Num2),
-    Le1 is Le + 1,
-    between(1,Le1,Num1),
-    between(1,Le1,Num2),
+    nth0(Head,Labels,Num1),
+    nth0(Tail,Labels,Num2),
+    between(0,Le,Num1),
+    between(0,Le,Num2),
     Diff is abs(Num1-Num2).
 
 satisfies_alternate(E,Ew,L,Le) :-
@@ -40,16 +63,21 @@ satisfies_alternate(E,Ew,L,Le) :-
 
 satisfies_alternate_inner([],[],_,_).
 
-satisfies_alternate_inner([Head|Tail],[Ewhead|Ewtail],L,Le) :-
+satisfies_alternate_inner(E,Ew,L,Le) :-
     Vnum is Le + 1,
     length(L,Vnum),
-    difference_alternate(Head,L,Ewhead,Le),
-    satisfies_alternate_inner(Tail,Ewtail,L,Le),
+    length(Ew,Ewnum),
+    indexof(Ew,Ewnum,NextIndex0),
+    NextIndex is NextIndex0 + 1,
+    nth1(NextIndex,E,NextEdge,RestEdges),
+    nth1(NextIndex,Ew,NextEdgeWeight,RestEdgeWeights),
+    difference_alternate(NextEdge,L,NextEdgeWeight,Le),
+    satisfies_alternate_inner(RestEdges,RestEdgeWeights,L,Le),
     is_set(L).
 
 graceful_alternate(E,L) :-
 length(E,Le),
-getnums(Le,Weights),
+getnums1(Le,Weights),
 permute(Weights,Ew),
 satisfies_alternate(E,Ew,L,Le).
 
