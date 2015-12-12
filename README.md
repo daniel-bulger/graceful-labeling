@@ -12,7 +12,7 @@ So to generate all graceful labelings for this tree, we type `graceful([[0,1],[1
 Note: you must type `;` each time you want to generate another labeling.  This is how swipl iterates through possible variable bindings.
 
 ###Verification
-Verifying a labeling for a tree is similar to generation: type `graceful(E,X).`, where E is a list of edges, and X is a labeling.  A labeling is formatted `[a,b,c,...,x,y,z]` where a-z are integer labels.  So to check if `[1,4,2,3]` is a graceful labeling for the tree `[[1,2],[2,3],[3,4]]`, we type `graceful([[1,2],[2,3],[3,4]],[1,4,2,3]).`.
+Verifying a labeling for a tree is similar to generation: type `graceful(E,X).`, where E is a list of edges, and X is a labeling.  A labeling is formatted `[a,b,c,...,x,y,z]` where a-z are integer labels.  So to check if `[0,3,1,2]` is a graceful labeling for the tree `[[0,1],[1,2],[2,3]]`, we type `graceful([[0,1],[1,2],[2,3]],[0,3,1,2]).`.
 
 This library was built for the SWI-Prolog interpreter.
 To run the interpreter, type `swipl` in the terminal.  Once inside the interpreter, load the file with `[labeler]`.  Make sure your terminal session is in the directory that contains labeler.pl, or swipl will not be able to find the labeler file.
