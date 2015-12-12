@@ -7,8 +7,8 @@ A Prolog library that generates and verifies graceful labelings for trees.
 ###Generation
 To generate graceful labelings for a tree, simply type
 `graceful(E,X).`, where E is a list of edges that comprise the tree, and X is an unbound variable.
-An edge is formatted `[a,b]` where a and b are integers corresponding to vertices in the tree.  The vertices must be 1-indexed.  So the encoding for the tree that is a straight line with 4 vertices would be `[[1,2],[2,3],[3,4]]`. 
-So to generate all graceful labelings for this tree, we type `graceful([[1,2],[2,3],[3,4]],X).`.
+An edge is formatted `[a,b]` where a and b are integers corresponding to vertices in the tree.  The vertices must be 0-indexed.  So the encoding for the tree that is a straight line with 4 vertices would be `[[0,1],[1,2],[2,3]]`. 
+So to generate all graceful labelings for this tree, we type `graceful([[0,1],[1,2],[2,3]],X).`.
 Note: you must type `;` each time you want to generate another labeling.  This is how swipl iterates through possible variable bindings.
 
 ###Verification
