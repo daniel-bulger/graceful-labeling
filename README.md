@@ -1,7 +1,7 @@
 graceful-labeling
 =================
 
-A Prolog library that generates and verifies graceful labelings for trees.
+A Prolog and python library that generates and verifies graceful labelings for trees.
 
 ##Usage
 ###Generation
@@ -16,3 +16,7 @@ Verifying a labeling for a tree is similar to generation: type `graceful(E,X).`,
 
 This library was built for the SWI-Prolog interpreter.
 To run the interpreter, type `swipl` in the terminal.  Once inside the interpreter, load the file with `[labeler]`.  Make sure your terminal session is in the directory that contains labeler.pl, or swipl will not be able to find the labeler file.
+
+There is also a python file which is probably easier to use.  The python program supports both generation and verification as well, and also supports partially specified generation.  Just run 'python labeler.py "[[0,1],[1,2]]"' to generate all possible graceful labelings.
+To verify a tree, run 'python labeler.py "[[0,1],[1,2]]" "[2,0,1]"' to verify whether the labeling where vertex 0 has label 2, vertex 1 has label 0, and vertex 2 has label 1 is graceful.  Labelings may also be specified as a dictionary, like 'python labeler.py "[[0,1],[1,2]]" "{0:2,1:0,2:1}"'.
+Partial labelings can also be specified, and any trees with the specified labels will be generated.  To leave a label unspecified, for the array syntax, replace a label with a '_'. With the dictionary syntax, simply don't specify a label for some vertices.
